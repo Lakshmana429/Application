@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+    <style>
+        .Logo{
+            position: relative;
+            width: 100%;
+            display: inline;
+        }
+        #image{
+            margin-left: 150px;
+            margin-top: 10px;
+        }
+        .Logo::after {
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px; 
+            background-color: black;
+            z-index: -1;
+        }
+        .Sign{
+            float: right;
+            margin-right: 250px;
+            font-size: 25px;
+            text-decoration: none;
+            margin-top: 60px;
+        }
+        .Details{
+            display: flex;
+        }
+        .Head1
+        {
+            border-bottom: 2px solid #000;
+            display:inline-block;
+            padding-bottom: 5px;
+        }
+        .Head2
+        {
+            border-bottom: 2px solid #000;
+            display:inline-block;
+            padding-bottom: 5px;
+            margin-left: 20px;
+            margin-top: 30px;
+        }
+        #sign1{
+            text-decoration: none;
+            font-size:medium;
+        }
+        #sign1:hover{
+            background-color: gray;
+        }
+        .Details{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-left: -90px;
+        }
+        .Star::before{
+            content: "* ";
+            color: red;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+            text-align: left;
+        }
+        
+        input{
+            width: 400px;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display:inline;	
+        }
+        #on{
+            text-decoration: none;
+        }
+        .Button {
+            background-color:rgb(104, 104, 227);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+            display: inline-block; 
+        }
+        .Button:hover{
+            background-color:indianred;
+        }
+        button a{
+            text-align: left;
+            display: block;
+            padding: 0;
+        }
+        .Main{
+            text-align: left;
+        }
+        .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 400px;
+        background-color: cadetblue;
+        color: #fff;
+        display: block;
+        border-radius: 6px;
+        
+
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+        }
+
+        .tooltip:hover .tooltiptext {
+        visibility: visible;
+        }
+        
+        
+    </style>
+</head>
+<body>
+	
+        <div class="Logo">
+        <img src="Logo.png" alt="GG Logo" height="100px" width="150px" id="image">
+        <a href="Signin.html" class="Sign">Login</a>
+        <hr class="Line">
+    </div>
+
+    <div class="Details">
+        <h2 class="Head1"><font size="6">Register </font><font size="3">Do you already have an account? </font><a
+                href="Signin.html" id="sign1">Sign in</a></h2><br>
+        <form action="Regis" method="post" id="form">
+            <label class="Star"">Required field</label><br>
+            <label class="Star">First Name</label>
+            <input type="text" name="FName" required><br>
+            <label class="Star">Last Name</label>
+            <input type="text" name="LName" required><br>
+            <label class="Star" >E-Mail</label>
+            <input type="email" name="Mail" id="username" required ><br>
+            <label class="Star">Password</label>
+            <div class="tooltip"><input type="password" id="password" name="Pass" required><br>
+            <span class="tooltiptext"><h6><ul style="list-style-type: circle;"><li>Password Length Should be 8-16 Charecters</li>
+            <li>Password Must Contain one Special Charecter(@,!,#,$,%,&), Digit</li>
+            <li>Password Must starts with Capital letter</li>
+            </ul></h6></span>
+        	</div>
+            <label class="Star">Confirm Password</label>
+            <input type="password" name="Pass1" required><br>
+            <label class="Star">Phone Number</label>
+            <input type="tel" name="Mobile" required><br>
+
+            <div class="Main">
+                <button class="Button" onclick=validateForm() type="submit" id="on">Register</button>
+            </div>
+            <script>
+
+                
+                
+            function isValidUser(username) {
+                if (username === "") {
+                    alert("Username cannot be empty");
+                    return false;
+                } else {
+                    let s = username.charAt(0);
+                    for (let i = 0; i <= 9; i++) {
+                        if (s == i) {
+                            alert("Username can't start with numbers");
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+            }
+
+            function isValidPassword(password) {
+                if (password === "") {
+                    alert("Password cannot be empty");
+                    return false;
+                } else if (password.length < 8 || password.length > 16) {
+                    alert("Password should be between 8 and 16 characters");
+                    return false;
+                }
+
+                // Check if the password starts with a capital letter
+                if (!/^[A-Z]/.test(password)) {
+                    alert("Password must start with a capital letter.");
+                    return false;
+                }
+
+                // Check if the password contains at least one digit
+                if (!/\d/.test(password)) {
+                    alert("Password must contain at least one digit.");
+                    return false;
+                }
+
+                // Check if the password contains at least one special symbol
+                if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                    alert("Password must contain at least one special symbol.");
+                    return false;
+                }
+
+       			return true;
+
+            }
+
+           
+            function validateForm() {
+                var username = document.forms["form"]["Mail"].value;
+                var password = document.forms["form"]["Pass"].value;
+                var password1 = document.forms["form"]["Pass1"].value;
+          
+
+                if (isValidUser(username) && isValidPassword(password)) 
+                {
+                	console.log("Entered validation");
+                	if(password === password1)
+                	{
+             			console.log("Entered conform");
+                		alert("Registered Successfully");
+                        return true;
+                	}
+                	else
+                	{
+                		alert("Password doesn't Match");
+                		event.preventDefault();
+                		return false;
+                	}
+                    
+                } 
+                else 
+                {
+                    event.preventDefault();
+                    return false;
+                }
+                
+            }
+           
+                    
+            </script>
+            
+            
+            
+        </form>
+
+    </div>
+        
+        
+</body>
+</html>
